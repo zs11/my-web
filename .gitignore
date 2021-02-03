@@ -1,3 +1,5 @@
 /node_modules
 /.vuepress/dist
 /.vuepress/.env_temp
+/homeREADME.md
+
