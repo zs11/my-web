@@ -1,0 +1,31 @@
+<div id="app">
+  <counter></counter>
+  <counter></counter>
+  <counter></counter>
+  <button @click="inc">increment</button>
+</div>
+
+<script>
+  const state = {
+    count: 0
+  }
+  const Counter = {
+    data() {
+      return state;
+    },
+    render(h) {
+      return h('div', this.count);
+    }
+  }
+  new Vue({
+    el: '#app',
+    components: {
+      Counter
+    },
+    methods: {
+      inc() {
+        state.count++;
+      }
+    }
+  })
+</script>
