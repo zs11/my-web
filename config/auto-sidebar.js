@@ -10,18 +10,48 @@ const SIDEBAR_ENTRY = [
   }
 ];
 
+let ENTRY = null;
+
 function autoSideBar() {
   let sidebar = {};
   for(let sec of SIDEBAR_ENTRY) {
+    ENTRY = path.resolve(process.cwd(), sec.path);
     const sidebar_path = path.resolve(process.cwd(), sec.path);
-    const res = [];
-    sidebar[sec.name] = scan(sidebar_path, res);
+    let catalog = [];
+    scan(sidebar_path, catalog);
+    sidebar[sec.name] = catalog;
   }
+  return sidebar;
 }
 
-function scan(path, res = []) {
-  const folders = fs.readdirSync(path);
-  console.log(folders);
+function scan(_path, catalog = []) {
+  const files = fs.readdirSync(_path);
+  files.sort((a, b) => a - b);
+  for(const file of files) {
+    if(!isValid(file)) {
+      continue;
+    }
+    const filePath = path.resolve(_path, file);
+    const fileStat = fs.statSync(filePath);
+    if(fileStat.isDirectory()) {
+      const subCatalog = {
+        title: file.replace(/^\d+\./, ""),
+        children: []
+      };
+      scan(filePath, subCatalog.children);
+      catalog.push(subCatalog);
+    } else if(fileStat.isFile() && file.endsWith('.md')) {
+      const mdName = path.relative(ENTRY, filePath).replace(/\.md$/, "").replace(/\\/g, '/');
+      catalog.push(mdName);
+    }
+  } 
 }
 
-autoSideBar()
+function isValid(name) {
+  return /^\d+\./.test(name);
+}
+
+
+module.exports = {
+  autoSideBar
+}

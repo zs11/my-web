@@ -4,9 +4,12 @@
 
 const path = require('path')
 const { nav } = require('../config/nav')
-const { sidebar } = require('../config/sidebar')
+// const { sidebar } = require('../config/sidebar')
+const { autoSideBar } = require('../config/auto-sidebar')
 
 const IMAGES_PATH = path.resolve(__dirname, '../images')
+const sidebar = autoSideBar()
+
 
 
 module.exports = {
