@@ -8,6 +8,10 @@ const nav = [
     link: '/notes/'
   },
   {
+    text: '题目汇总',
+    link: '/exam/'
+  },
+  {
     text: 'GitHub',
     link: 'https://github.com/zs11/my-web'
   }

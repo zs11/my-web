@@ -7,6 +7,10 @@ const SIDEBAR_ENTRY = [
   {
     name: '/notes/',
     path: 'notes'
+  },
+  {
+    name: '/exam/',
+    path: 'exam'
   }
 ];
 
